@@ -1,0 +1,8 @@
+# CMake
+build/
+
+# QtCreator CMake
+CMakeLists.txt.user*
+
+# CircleCI
+process.yml

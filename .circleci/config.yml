@@ -1,0 +1,38 @@
+version: 2.1
+jobs:
+  ubuntu-xenial-amd64:
+    docker:
+    - image: gadoofou87/neutron-ci-ubuntu-xenial-amd64
+    steps:
+    - checkout
+    - run:
+        name: Configure
+        command: |-
+          mkdir build
+          cd build
+          cmake -GNinja -DCMAKE_BUILD_TYPE=Release ..
+    - run:
+        name: Build
+        command: ninja
+        working_directory: build
+  mingw-w64-amd64:
+    docker:
+    - image: gadoofou87/neutron-ci-mingw-w64-amd64
+    steps:
+    - checkout
+    - run:
+        name: Configure
+        command: |-
+          mkdir build 
+          cd build 
+          x86_64-w64-mingw32-cmake -GNinja -DCMAKE_BUILD_TYPE=Release ..
+    - run:
+        name: Build
+        command: ninja
+        working_directory: build
+workflows:
+  version: 2
+  build:
+    jobs:
+    - ubuntu-xenial-amd64
+    - mingw-w64-amd64
